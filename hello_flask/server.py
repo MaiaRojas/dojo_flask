@@ -10,18 +10,13 @@ def hola_mundo():
 def dojo():
   return "¡Dojo!" # Devuelve la cadena '¡Hola Mundo!' como respuesta
 
-@app.route('/say/<user>') # para una ruta '/users/____/____', dos parámetros en la url se pasan como nombre de usuario e id
+@app.route('/say/<string:user>') # para una ruta '/users/____/____', dos parámetros en la url se pasan como nombre de usuario e id
 def say_name(user):
-  if isinstance(user, int):
-    return "¡Lo siento! No hay respuesta. Inténtalo otra vez."
   return "¡Hola, " + user+ "!"
   
-@app.route('/repeat/<times>/<word>')
+@app.route('/repeat/<int:times>/<string:word>')
 def repeat_word(times, word):
-  if isinstance(word, str) and  isinstance(int(times), (int)) :
-    return word* int(times)
-
-  return "¡Lo siento! No hay respuesta. Inténtalo otra vez."
+  return word* int(times)
 
 if __name__=="__main__":   # Asegúrate de que este archivo se esté ejecutando directamente y no desde un módulo diferente    
   app.run(debug=True)    # Ejecuta la aplicación en modo de depuración
