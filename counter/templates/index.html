@@ -15,17 +15,32 @@
 </head>
 <body>
   <div class="container text-center">
-    <h1>Counter</h1>
+    <h1>Welcome to the Great Number Game!!!</h1>
+    <p>I am thinking of a  number between 1 and 100</p>
 
-    {% if session['counter'] == 1 %}
-      <h3>{{session['counter']}} Time</h3>
-    {% else %}
-      <h3>{{session['counter']}} Times</h3>
+    {% if 'game_input' in session: %}
+      {% if session['game_key'] == session['game_input'] %}
+        <div class="alert alert-success d-flex flex-column align-items-center" role="alert">
+          You got the number!
+          <a  class="btn btn-light" href="/clear">Play again!</a>
+        </div
+      {% elif session['game_key'] < session['game_input'] %}
+        <div class="alert alert-danger" role="alert">
+          Too High!!!!
+        </div>
+      {% else %}
+        <div class="alert alert-danger" role="alert">
+          Too Low!!!!
+        </div>
+      {% endif %}
     {% endif %}
-
+    
+    <p>Take a guess!!</p>
     <div class="d-flex justify-content-center">
-      <form><button type="submit" formaction="{{ url_for('moreVisit') }}" class="btn btn-danger">Add visit</button></form>
-      <form> <button type="submit" formaction="{{ url_for('reset') }}" class="btn btn-success">Reset</button></form>
+      <form action="/submit" method="post">
+        <input type="number" class="form-control mb-2" id="game" name="game" placeholder="Ingrese su game aquí" required>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+      </form>
     </div>
   </div>
 </body>
